@@ -1,123 +1,139 @@
 import React, { Component } from 'react';
-import './css/Sidebarwithmap.css';
-import Mapcontainer from"./Mapcontainer.js";
-import Hamburger from"./Hamburger.js";
+import PropTypes from "prop-types";
+import Mapcontainer from'./Mapcontainer.js';
+import Hamburger from'./Hamburger.js';
 
+import './css/Sidebarwithmap.css';
+
+/**
+*Component that fits all UI's together, including side bar and google map.
+**/
 class Sidebarwithmap extends Component {
 
- state = {
- 	sideNavStyle:'0',
- 	hamburgerClassName:'hamburger hamburger--minus js-hamburger',
- 	placesToDisplay:[],
- 	query:'',
- 	listItemSelected:'',
- 	hamburgerArialabel:"Hamburger Menu closed. Click to Open",
- 	inputTabIndex:-12,
-
- }
-
-
-	hamburgerToggle = ()=>{
-		 if(this.state.hamburgerClassName==='hamburger hamburger--minus js-hamburger'){
-			this.setState({sideNavStyle:'270px'})
-			this.setState({hamburgerClassName:"hamburger hamburger--minus is-active"})
-			this.setState({hamburgerArialabel:"Hamburger Menu open. Click to Close"})
-			this.setState({inputTabIndex:3})
-
-		 } else {
-			this.setState({sideNavStyle:'0'})
-			this.setState({hamburgerClassName:'hamburger hamburger--minus js-hamburger'})
-			this.setState({hamburgerArialabel:"Hamburger Menu closed. Click to Open"})
-			this.setState({inputTabIndex:-12})
-		 }
-
+	state = {
+		sideNavStyle: '0',
+		hamburgerClassName: 'hamburger hamburger--minus js-hamburger',
+		placesToDisplay: [],
+		query: '',
+		listItemSelected: '',
+		hamburgerArialabel: 'Hamburger Menu closed. Click to Open',
+		inputTabIndex: -12,
 
 	}
 
-	componentWillMount(){
-		this.setState({placesToDisplay:this.props.activeMarkers})
+	//Toggles hamburger menu item between open and close
+	hamburgerToggle = () => {
+		if(this.state.hamburgerClassName === 'hamburger hamburger--minus js-hamburger')
+			this.setState({
+				sideNavStyle: '270px',
+				hamburgerClassName: 'hamburger hamburger--minus is-active',
+				hamburgerArialabel: 'Hamburger Menu open. Click to Close',
+				inputTabIndex: 3
+			})
+		else
+			this.setState({
+				sideNavStyle: '0',
+				hamburgerClassName: 'hamburger hamburger--minus js-hamburger',
+				hamburgerArialabel: 'Hamburger Menu closed. Click to Open',
+				inputTabIndex: -12
+			})
 	}
-
-	handleQueryEvent = (query)=>{
-		this.setState({query:query, listItemSelected:''})
+	//Query what is written in the search bar and reset listitemselected to nothing
+	handleQueryEvent = (query) => {
+		this.setState({query: query, listItemSelected: ''})
+		//Search the query in the search bar
 		this.search(query);
 	}
 
-	search =(thisQuery)=>{
-		if(thisQuery.length===0)
-			this.setState({placesToDisplay:this.props.activeMarkers});
+	//Method called from handleQueryEvent.
+	search = (thisQuery) => {
+		if(thisQuery.length === 0)
+			//Do not filter any results if there is no query. Display all places on maps.
+			this.setState({placesToDisplay: this.props.activeMarkers});
 		else
+			//Filters query on the list items and maps places.
 			this.setState({placesToDisplay:
-				this.props.activeMarkers.filter(p=>p.title.toLowerCase().includes(thisQuery.trim().toLowerCase()))})
+				this.props.activeMarkers.filter(p => p.title.toLowerCase().includes(thisQuery.trim().toLowerCase()))})
 	}
 
+	//Set the places to display to all places as none have been filtered yet
+	componentWillMount() {
+		this.setState({placesToDisplay: this.props.activeMarkers})
+	}
 
+	onclickOrTouch=() => {
+		this.setState({
+			sideNavStyle:'0',
+			 hamburgerClassName:'hamburger hamburger--minus js-hamburger',
+			 hamburgerArialabel:'Hamburger Menu closed. Click to Open',
+			 inputTabIndex:-12
+		})
+	}
 
-	 render(){
+	render() {
 		return(
 			<div>
-				<div id={"mySidenav"} className={"sidenav"} style={{width:this.state.sideNavStyle}}>
-
-			  		<input
-			  			tabIndex={this.state.inputTabIndex}
-			  			className='searchbar'
-			  			type='text'
-			  			placeholder='Search For...'
-			  			onChange = {event => this.handleQueryEvent(event.target.value)}
-			  			value = {this.state.query}
-			  			aria-label="Filter places search bar"
-			  		 />
-
-			  		{this.state.placesToDisplay.map((place, index)=>(
-			  			<div
-			  			className='placediv'
-						tabIndex={this.state.inputTabIndex + index}
-			  			key={index}
-			  			onClick={()=> this.setState({listItemSelected: place.title})}
-			  			style={{}}
-			  			>
-			  				<a>{place.title}</a>
-			  			</div>
-			  		))}
-
+				<div
+					id={'mySidenav'}
+					className={'sidenav'}
+					style={{width:this.state.sideNavStyle}}
+				>
+					<input
+						tabIndex={this.state.inputTabIndex}
+						className='searchbar'
+						type='text'
+						placeholder='Search For...'
+						onChange={event => this.handleQueryEvent(event.target.value)}
+						value={this.state.query}
+						aria-label='Filter places search bar'
+					/>
+					{this.state.placesToDisplay.map((place, index) => (
+						<div
+							className='placediv'
+							tabIndex={this.state.inputTabIndex+index}
+							key={index}
+							onClick={() => this.setState({listItemSelected: place.title})}
+						>
+							<a>{place.title}</a>
+						</div>
+					))}
 				</div>
-
-				<div id={"main"} style={{marginLeft:'0'}} tabIndex='-1'>
-					<div className={"top-section"} tabIndex='-1'>
-				 		 <Hamburger
-				 		 	hamburgerArialabel={this.state.hamburgerArialabel}
-				 		 	hamburgerClassName={this.state.hamburgerClassName}
-				 		 	hamburgerToggle = {this.hamburgerToggle}
-				 		 />
-						<h1 className={'mainheading'} tabIndex	="1">PLACES REACT</h1>
+				<div
+					id='main'
+					style={{marginLeft: '0'}}
+					tabIndex='-1'
+				>
+					<div className={'top-section'} tabIndex='-1'>
+						<Hamburger
+							hamburgerArialabel={this.state.hamburgerArialabel}
+							hamburgerClassName={this.state.hamburgerClassName}
+							hamburgerToggle = {this.hamburgerToggle}
+						/>
+						<h1 className={'mainheading'} tabIndex='1'>PLACES REACT</h1>
 					</div>
-
-			 		<div
-			 			className={'map-area'}
-			 			onClick={()=>{this.setState({sideNavStyle:'0', hamburgerClassName:'hamburger hamburger--minus js-hamburger',
-			 				hamburgerArialabel:"Hamburger Menu closed. Click to Open",inputTabIndex:-12})}}
-			 			onTouchMove={()=>{this.setState({sideNavStyle:'0', hamburgerClassName:'hamburger hamburger--minus js-hamburger',
-			 				hamburgerArialabel:"Hamburger Menu closed. Click to Open",inputTabIndex:-12})}}
-			 		 	role="application"
-				         aria-label="Google Maps Internal Window"
-				         tabIndex='9'
-			 		>
-
- 						<Mapcontainer
- 						  tabIndex='10'
-
- 						  placesToDisplay={this.state.placesToDisplay}
- 						  placeSelected={this.state.listItemSelected}
- 						  selectPlace= {(place)=>{this.setState({listItemSelected: place})}}
- 						  />
- 					</div>
+					<div
+						className={'map-area'}
+						onClick={this.onclickOrTouch}
+						onTouchMove={this.onclickOrTouch}
+						role='application'
+						aria-label='Google Maps Internal Window'
+						tabIndex='9'
+					>
+						<Mapcontainer
+							tabIndex='10'
+							placesToDisplay={this.state.placesToDisplay}
+							placeSelected={this.state.listItemSelected}
+							selectPlace={(place) => {this.setState({listItemSelected: place})}}
+						/>
+					</div>
 				</div>
-
 			</div>
-
 		)
-
 	}
+}
+
+Sidebarwithmap.propTypes = {
+  activeMarkers: PropTypes.array.isRequired,
 }
 
 export default Sidebarwithmap;

@@ -1,5 +1,5 @@
 .sidenav {
-    margin-top:46px;
+    margin-top: 46px;
     height: 100%;
     width: 0;
     position: fixed;
@@ -11,8 +11,6 @@
     transition: 0.4s;
     font-size: 20px;
     font-family: 'Arial Black';
-
-
 }
 .sidenav a {
     text-align: left;
@@ -23,28 +21,23 @@
     transition: 0.4s;
 
 }
-
 .sidenav a:hover {
     color: #4856C1;
 }
 
 #main {
     padding: 0px;
-    width:100%;
-
-   }
-
-.top-section{
-    width:100%;
+    width: 100%;
+}
+.top-section {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     background-color: #89ECE9;
-
 }
-
-.mainheading{
-    font-family:'Arial Black';
-    margin:0;
+.mainheading {
+    font-family: 'Arial Black';
+    margin: 0;
     margin-left: auto;
     margin-right: auto;
 }
@@ -58,13 +51,12 @@
 }
 
 .searchbar {
-    margin-top:10px;
+    margin-top: 10px;
     margin-left: 30px;
     font-size: 25px;
-    width:200px;
+    width: 200px;
 }
-
 .placediv :hover {
     background-color: #B0368F;
-    cursor:pointer;
+    cursor: pointer;
 }

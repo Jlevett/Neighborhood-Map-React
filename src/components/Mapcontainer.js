@@ -96,6 +96,7 @@ class Mapcontainer extends Component {
 
 render(){
     return (
+
       <Map
         google={this.props.google}
         bounds={this.state.bounds}
@@ -121,14 +122,17 @@ render(){
           marker={this.state.activeMarker}
           onClose={()=>this.setState({ infoWindowVisible: false})}
           visible={this.state.infoWindowVisible} >
-            <div className="info-window-content">
-              <h1  style={{textAlign:'center'}}>{this.state.activeMarker.title}</h1>
-              { this.state.photo ==='Loading photo' ? <h2 style={{textAlign:'center'}}>Loading photo</h2> :
-                this.state.photo ==='error' ? <h2 style={{textAlign:'center'}}>Photo could not load</h2> :
+            <div className="info-window-content"
+                  role="InfoWindow"
+                  aria-label={`InfoWindow on ${this.state.activeMarker.title}`}
+             >
+              <h2   tabindex="0"  style={{textAlign:'center'}}>{this.state.activeMarker.title}</h2>
+              { this.state.photo ==='Loading photo' ? <h3  tabindex="0"  style={{textAlign:'center'}}>Loading photo</h3> :
+                this.state.photo ==='error' ? <h3  tabindex="0"  style={{textAlign:'center'}}>Photo could not load</h3> :
                 <div style={{textAlign:'center'}} >
-                <img src={this.state.photo}   alt={this.state.activeMarker.title + ' photo'}/>
+                <img  tabindex="0"   src={this.state.photo}   alt={this.state.activeMarker.title + ' photo'}/>
                 </div>}
-              <h2 style={{textAlign:'center'}}>{this.state.likes}</h2>
+              <h3 tabindex="0"  style={{textAlign:'center'}}>{this.state.likes}</h3>
             </div>
         </InfoWindow>
        </Map>

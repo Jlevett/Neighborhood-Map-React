@@ -1,9 +1,13 @@
 # Neighborhood Map React Single Page App
+By Jeremy Levett
+![label](https://camo.githubusercontent.com/dff1e27eb75261fc03e40cb83600cab6f23871d8/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f556461636974792d52656163742d3032623365342e737667)
 
 ## About
 This single page app uses the Google maps API and the location-based service Foursquare API to list some attractions in the Blue Mountains Katoomba, Australia.
 
 [Run it live here](https://jlevett.github.io/Neighborhood-Map-React/ "Live App Here")
+
+This application follow this [Udacity Project Rubric](https://review.udacity.com/#!/rubrics/1351/view)
 
 This app was design from ground up, utilizing the create-react-app tool.
 It uses [google-maps-react](https://www.npmjs.com/package/google-maps-react)

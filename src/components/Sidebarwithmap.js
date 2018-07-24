@@ -4,7 +4,7 @@ import Mapcontainer from'./Mapcontainer.js';
 import Hamburger from'./Hamburger.js';
 
 import './css/Sidebarwithmap.css';
-
+import './css/Inputtextbox.css';
 /**
 *Component that fits all UI's together, including side bar and google map.
 **/
@@ -69,7 +69,6 @@ class Sidebarwithmap extends Component {
 			 inputTabIndex:-12
 		})
 	}
-
 	render() {
 		return(
 			<div>
@@ -78,15 +77,23 @@ class Sidebarwithmap extends Component {
 					className={'sidenav'}
 					style={{width:this.state.sideNavStyle}}
 				>
-					<input
-						tabIndex={this.state.inputTabIndex}
-						className='searchbar'
-						type='text'
-						placeholder='Search For...'
-						onChange={event => this.handleQueryEvent(event.target.value)}
-						value={this.state.query}
-						aria-label='Filter places search bar'
-					/>
+					<label className="inp" tabIndex={this.state.inputTabIndex}>
+						<input
+							type="text"
+							id="inp"
+							placeholder="&nbsp;"
+							onChange={event => this.handleQueryEvent(event.target.value)}
+							value={this.state.query}
+							aria-label='Filter places search bar'
+							tabIndex={this.state.inputTabIndex}
+							className='searchbar'
+						/>
+						<span className="label">Search...</span>
+					  	<svg width="120px" height="26px" viewBox="0 0 120 26">
+					    	<path d="M0,25 C21,25 46,25 74,25 C102,25 118,25 120,25"></path>
+					  	</svg>
+					  <span className="border"></span>
+					</label>
 					{this.state.placesToDisplay.map((place, index) => (
 						<div
 							className='placediv'
@@ -97,6 +104,8 @@ class Sidebarwithmap extends Component {
 							<a>{place.title}</a>
 						</div>
 					))}
+					<img src="http://icons.iconarchive.com/icons/designbolts/vector-foursquare/128/Foursquare-4-icon.png" className="sidelogo"
+				 	alt="logo"/>
 				</div>
 				<div
 					id='main'
@@ -109,7 +118,7 @@ class Sidebarwithmap extends Component {
 							hamburgerClassName={this.state.hamburgerClassName}
 							hamburgerToggle = {this.hamburgerToggle}
 						/>
-						<h1 className={'mainheading'} tabIndex='1'>PLACES REACT</h1>
+						<h1 className={'mainheading'} tabIndex='1'>MOUNTAINS MAP</h1>
 					</div>
 					<div
 						className={'map-area'}

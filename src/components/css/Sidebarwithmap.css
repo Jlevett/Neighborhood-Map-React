@@ -10,7 +10,7 @@
     overflow-x: hidden;
     transition: 0.4s;
     font-size: 20px;
-    font-family: 'Arial Black';
+    font-family: 'Helvetica';
 }
 .sidenav a {
     text-align: left;
@@ -19,7 +19,6 @@
     color: #FFF;
     display: block;
     transition: 0.4s;
-
 }
 .sidenav a:hover {
     color: #4856C1;
@@ -41,22 +40,27 @@
     margin-left: auto;
     margin-right: auto;
 }
-
 .hamburger-box {
     height: 40px !important;
 }
-
 .map-area > * > * {
     height: 95% !important;
-}
-
-.searchbar {
-    margin-top: 10px;
-    margin-left: 30px;
-    font-size: 25px;
-    width: 200px;
 }
 .placediv :hover {
     background-color: #B0368F;
     cursor: pointer;
 }
+.sidelogo {
+   position: absolute;
+   bottom: 0;
+   padding-bottom: 100px;
+   margin-left: 65px;
+}
+
+@media screen and (min-width: 599px){
+    .sidelogo {
+        display: none;
+
+    }
+}
+

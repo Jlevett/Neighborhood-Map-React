@@ -119,7 +119,7 @@ render(){
         )}
         <InfoWindow
           marker={this.state.activeMarker}
-          onClose={() => this.setState({ infoWindowVisible: false})}
+          onClose={() => this.setState({activeMarker: {}, infoWindowVisible: false})}
           visible={this.state.infoWindowVisible} >
             <div
               className="info-window-content"
